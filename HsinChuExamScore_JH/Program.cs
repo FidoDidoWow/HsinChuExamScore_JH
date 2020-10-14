@@ -24,7 +24,8 @@ namespace HsinChuExamScore_JH
             // 先初始化
             AccessHelper _AccessHelper = new AccessHelper();
 
-            List<HsinChuExamScore_JH.DAO.UDT_KCBSDermit> retVal = _AccessHelper.Select<DAO.UDT_KCBSDermit>();
+            List<HsinChuExamScore_JH.DAO.UDT_KCBSDermit> retVal1 = _AccessHelper.Select<DAO.UDT_KCBSDermit>();
+            List<HsinChuExamScore_JH.DAO.UDT_KCBSDermitComparison> retVal2 = _AccessHelper.Select<DAO.UDT_KCBSDermitComparison>();
 
 
             RibbonBarItem rbItem1 = MotherForm.RibbonBarItems["學生", "資料統計"];

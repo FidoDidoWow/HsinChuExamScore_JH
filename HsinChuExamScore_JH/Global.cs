@@ -3767,6 +3767,97 @@ namespace HsinChuExamScore_JH
                     builder.Writeln();
                 }
                 builder.Writeln();
+
+                // 康橋懲戒
+                builder.Writeln("康橋懲戒對照表");
+                builder.StartTable();
+                builder.InsertCell();
+                builder.Write("級數");
+                builder.InsertCell();
+                builder.Write("懲戒名稱");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("1");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋1級懲戒名稱" + " \\* MERGEFORMAT ", "«N1»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("2");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋2級懲戒名稱" + " \\* MERGEFORMAT ", "«N2»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("3");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋3級懲戒名稱" + " \\* MERGEFORMAT ", "«N3»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("4");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋4級懲戒名稱" + " \\* MERGEFORMAT ", "«N4»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("5");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋5級懲戒名稱" + " \\* MERGEFORMAT ", "«N5»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("6");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋2級懲戒名稱" + " \\* MERGEFORMAT ", "«N6»");
+                builder.EndRow();
+                builder.EndTable();
+
+                builder.Writeln("康橋懲戒");
+                builder.StartTable();
+                builder.InsertCell();
+                builder.Write("項目");
+                builder.InsertCell();
+                builder.Write("功能變數");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("1級懲戒支數");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋1級懲戒支數" + " \\* MERGEFORMAT ", "«D1»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("2級懲戒支數");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋2級懲戒支數" + " \\* MERGEFORMAT ", "«D2»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("3級懲戒支數");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋3級懲戒支數" + " \\* MERGEFORMAT ", "«D3»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("4級懲戒支數");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋4級懲戒支數" + " \\* MERGEFORMAT ", "«D4»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("5級懲戒支數");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋5級懲戒支數" + " \\* MERGEFORMAT ", "«D5»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("6級懲戒支數");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋6級懲戒支數" + " \\* MERGEFORMAT ", "«D6»");
+                builder.EndRow();
+                builder.InsertCell();
+                builder.Write("累計懲戒");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD " + "康橋累計懲戒" + " \\* MERGEFORMAT ", "«C»");
+                builder.EndRow();
+
+                builder.EndTable();
+
+                builder.Writeln();
+
+
+
+                builder.Writeln();
                 builder.Writeln();
 
                 #endregion

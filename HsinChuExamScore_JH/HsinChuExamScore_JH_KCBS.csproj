@@ -132,7 +132,9 @@
     <Compile Include="CloneConfigure.designer.cs">
       <DependentUpon>CloneConfigure.cs</DependentUpon>
     </Compile>
+    <Compile Include="KCBSDermitManager.cs" />
     <Compile Include="Configure.cs" />
+    <Compile Include="DAO\UDT_KCBSDermitComparison.cs" />
     <Compile Include="DAO\UDT_KCBSDermit.cs" />
     <Compile Include="DemeritItemKCBS.cs">
       <SubType>UserControl</SubType>

@@ -23,6 +23,8 @@ namespace HsinChuExamScore_JH
 {
     public partial class PrintForm : BaseForm, IFieldMergingCallback
     {
+        // 專處理康橋客製報表多的東西
+        public KCBSDermitManager kmanager = new KCBSDermitManager();
 
         private Boolean HasReferenceExam = false;
         private Boolean btnPrintClick = false;
@@ -851,8 +853,8 @@ namespace HsinChuExamScore_JH
 
             }
 
-
-
+            // 取得康橋獎懲紀錄
+            kmanager.GetKCBSDermit(_StudentIDList);
 
             #region 處理合併 DataTable 相關資料
             // 儲存資料用 Data Table
@@ -1198,6 +1200,7 @@ namespace HsinChuExamScore_JH
                 }
 
 
+
                 dt.TableName = StudRec.ID;
 
                 //// debug write text file
@@ -1209,6 +1212,8 @@ namespace HsinChuExamScore_JH
                     }
                 }
 
+                // 傳回康橋專有的表
+                dt = kmanager.NewKCBSTable(dt);
 
                 // 填入對照資料
                 DataRow row = dt.NewRow();
@@ -2209,6 +2214,9 @@ namespace HsinChuExamScore_JH
                 row["區間開始日期"] = _BeginDate.ToShortDateString();
                 row["區間結束日期"] = _EndDate.ToShortDateString();
                 row["成績校正日期"] = _ScoreEditDate;
+
+                // 加入康橋的ROW 內容
+                row = kmanager.NewKCBSROW(row);
 
                 dt.Rows.Add(row);
                 dtAtt.Rows.Add(rowT);
