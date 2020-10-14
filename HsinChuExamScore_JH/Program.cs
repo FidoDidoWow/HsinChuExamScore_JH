@@ -6,6 +6,8 @@ using System.IO;
 using System.Data;
 using FISCA.Permission;
 using FISCA.Presentation;
+using K12.Data;
+using FISCA.UDT;
 
 namespace HsinChuExamScore_JH
 {
@@ -19,9 +21,15 @@ namespace HsinChuExamScore_JH
         [FISCA.MainMethod]
         public static void Main()
         {
+            // 先初始化
+            AccessHelper _AccessHelper = new AccessHelper();
+
+            List<HsinChuExamScore_JH.DAO.UDT_KCBSDermit> retVal = _AccessHelper.Select<DAO.UDT_KCBSDermit>();
+
+
             RibbonBarItem rbItem1 = MotherForm.RibbonBarItems["學生", "資料統計"];
-            rbItem1["報表"]["成績相關報表"]["評量成績通知單(固定排名)"].Enable = UserAcl.Current["JH.Student.HsinChuExamScore_JH_Student"].Executable;
-            rbItem1["報表"]["成績相關報表"]["評量成績通知單(固定排名)"].Click += delegate
+            rbItem1["報表"]["成績相關報表"]["成績通知單(康橋)"]["評量成績通知單(固定排名)(康橋懲戒)"].Enable = UserAcl.Current["JH.Student.HsinChuExamScore_JH_Student_kcbs"].Executable;
+            rbItem1["報表"]["成績相關報表"]["成績通知單(康橋)"]["評量成績通知單(固定排名)(康橋懲戒)"].Click += delegate
             {
                 if (K12.Presentation.NLDPanels.Student.SelectedSource.Count > 0 && K12.Presentation.NLDPanels.Student.SelectedSource.Count < 111)
                 {
@@ -41,8 +49,8 @@ namespace HsinChuExamScore_JH
             };
 
             RibbonBarItem rbItem2 = MotherForm.RibbonBarItems["班級", "資料統計"];
-            rbItem2["報表"]["成績相關報表"]["評量成績通知單(固定排名)"].Enable = UserAcl.Current["JH.Student.HsinChuExamScore_JH_Class"].Executable;
-            rbItem2["報表"]["成績相關報表"]["評量成績通知單(固定排名)"].Click += delegate
+            rbItem2["報表"]["成績相關報表"]["成績通知單(康橋)"]["評量成績通知單(固定排名)(康橋懲戒)"].Enable = UserAcl.Current["JH.Student.HsinChuExamScore_JH_Class_kcbs"].Executable;
+            rbItem2["報表"]["成績相關報表"]["成績通知單(康橋)"]["評量成績通知單(固定排名)(康橋懲戒)"].Click += delegate
             {
                 if (K12.Presentation.NLDPanels.Class.SelectedSource.Count > 0 && K12.Presentation.NLDPanels.Class.SelectedSource.Count < 4)
                 {
@@ -64,12 +72,45 @@ namespace HsinChuExamScore_JH
             };
             // 評量成績通知單
             Catalog catalog1a = RoleAclSource.Instance["學生"]["功能按鈕"];
-            catalog1a.Add(new RibbonFeature("JH.Student.HsinChuExamScore_JH_Student", "評量成績通知單(固定排名)"));
+            catalog1a.Add(new RibbonFeature("JH.Student.HsinChuExamScore_JH_Student_kcbs", "評量成績通知單(固定排名)(康橋懲戒)"));
 
             // 評量成績通知單
             Catalog catalog1b = RoleAclSource.Instance["班級"]["功能按鈕"];
-            catalog1b.Add(new RibbonFeature("JH.Student.HsinChuExamScore_JH_Class", "評量成績通知單(固定排名)"));
+            catalog1b.Add(new RibbonFeature("JH.Student.HsinChuExamScore_JH_Class_kcbs", "評量成績通知單(固定排名)(康橋懲戒)"));
 
+
+            RibbonBarItem rbItem3 = MotherForm.RibbonBarItems["學生", "資料統計"];
+            rbItem3["匯出"]["學務相關匯出"]["匯出康橋懲戒紀錄"].Enable = UserAcl.Current["JH.Student.HsinChuExamScore_JH_Student_kcbs_demrit_export"].Executable;
+            rbItem3["匯出"]["學務相關匯出"]["匯出康橋懲戒紀錄"].Click += delegate
+            {
+                if (K12.Presentation.NLDPanels.Student.SelectedSource.Count > 0)
+                {
+                    ExportKCBSDermit exporter = new ExportKCBSDermit(K12.Presentation.NLDPanels.Student.SelectedSource);
+
+                    exporter.export();
+                }
+                else
+                {
+                    FISCA.Presentation.Controls.MsgBox.Show("請選擇選學生");
+                    return;
+                }
+            };
+
+            // 評量成績通知單
+            Catalog catalog1c = RoleAclSource.Instance["學生"]["功能按鈕"];
+            catalog1c.Add(new RibbonFeature("JH.Student.HsinChuExamScore_JH_Student_kcbs_demrit_export", "匯出康橋懲戒紀錄"));
+
+
+
+            Catalog ribbon = RoleAclSource.Instance["學生"]["資料項目"];
+            ribbon.Add(new FISCA.Permission.DetailItemFeature("K12.Student.DemeritItem_KCBS", "康橋懲戒記錄"));
+
+            FISCA.Permission.FeatureAce UserPermission;
+
+            //懲戒記錄
+            UserPermission = FISCA.Permission.UserAcl.Current["K12.Student.DemeritItem_KCBS"];
+            if (UserPermission.Editable || UserPermission.Viewable)
+                K12.Presentation.NLDPanels.Student.AddDetailBulider(new DetailBulider<DemeritItemKCBS>());
         }
 
     }
