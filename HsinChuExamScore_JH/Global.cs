@@ -14,11 +14,11 @@ namespace HsinChuExamScore_JH
     public class Global
     {
         #region 設定檔記錄用
-
+        // 2020/10/19 穎驊紀錄，康橋將缺曠、獎、懲、服務學習各自拆成4 段區間，因此需要新的config 紀錄
         /// <summary>
         /// UDT TableName
         /// </summary>
-        public const string _UDTTableName = "ischool.新竹國中評量成績通知單.configure";
+        public const string _UDTTableName = "ischool.新竹國中評量成績通知單.configure_kcbs";
 
         public static string _ProjectName = "國中新竹評量成績單";
 
@@ -1501,15 +1501,39 @@ namespace HsinChuExamScore_JH
                 builder.EndRow();
 
                 builder.InsertCell();
-                builder.Write("區間開始日期");
+                builder.Write("缺曠區間開始日期");
                 builder.InsertCell();
-                builder.InsertField("MERGEFIELD 區間開始日期" + " \\* MERGEFORMAT ", "«區間開始日期" + "»");
+                builder.InsertField("MERGEFIELD 缺曠區間開始日期" + " \\* MERGEFORMAT ", "«缺曠區間開始日期" + "»");
                 builder.EndRow();
 
                 builder.InsertCell();
-                builder.Write("區間結束日期");
+                builder.Write("缺曠區間結束日期");
                 builder.InsertCell();
-                builder.InsertField("MERGEFIELD 區間結束日期" + " \\* MERGEFORMAT ", "«區間結束日期" + "»");
+                builder.InsertField("MERGEFIELD 缺曠區間結束日期" + " \\* MERGEFORMAT ", "«缺曠區間結束日期" + "»");
+                builder.EndRow();
+
+                builder.InsertCell();
+                builder.Write("獎勵區間開始日期");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD 獎勵區間開始日期" + " \\* MERGEFORMAT ", "«獎勵區間開始日期" + "»");
+                builder.EndRow();
+
+                builder.InsertCell();
+                builder.Write("獎勵區間結束日期");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD 獎勵區間結束日期" + " \\* MERGEFORMAT ", "«獎勵區間結束日期" + "»");
+                builder.EndRow();
+
+                builder.InsertCell();
+                builder.Write("服務學習區間開始日期");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD 服務學習區間開始日期" + " \\* MERGEFORMAT ", "«服務學習區間開始日期" + "»");
+                builder.EndRow();
+
+                builder.InsertCell();
+                builder.Write("服務學習區間結束日期");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD 服務學習區間結束日期" + " \\* MERGEFORMAT ", "«服務學習區間結束日期" + "»");
                 builder.EndRow();
 
                 builder.InsertCell();
@@ -3769,6 +3793,21 @@ namespace HsinChuExamScore_JH
                 builder.Writeln();
 
                 // 康橋懲戒
+
+                builder.Writeln("康橋懲戒時段");
+
+                builder.InsertCell();
+                builder.Write("康橋懲戒區間結束日期");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD 康橋懲戒區間結束日期" + " \\* MERGEFORMAT ", "«康橋懲戒區間結束日期" + "»");
+                builder.EndRow();
+
+                builder.InsertCell();
+                builder.Write("康橋懲戒區間結束日期");
+                builder.InsertCell();
+                builder.InsertField("MERGEFIELD 康橋懲戒區間結束日期" + " \\* MERGEFORMAT ", "«服康橋懲戒區間結束日期" + "»");
+                builder.EndRow();
+
                 builder.Writeln("康橋懲戒對照表");
                 builder.StartTable();
                 builder.InsertCell();
@@ -3804,7 +3843,7 @@ namespace HsinChuExamScore_JH
                 builder.InsertCell();
                 builder.Write("6");
                 builder.InsertCell();
-                builder.InsertField("MERGEFIELD " + "康橋2級懲戒名稱" + " \\* MERGEFORMAT ", "«N6»");
+                builder.InsertField("MERGEFIELD " + "康橋6級懲戒名稱" + " \\* MERGEFORMAT ", "«N6»");
                 builder.EndRow();
                 builder.EndTable();
 

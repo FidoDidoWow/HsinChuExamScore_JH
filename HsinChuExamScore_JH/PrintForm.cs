@@ -23,8 +23,8 @@ namespace HsinChuExamScore_JH
 {
     public partial class PrintForm : BaseForm, IFieldMergingCallback
     {
-        // 專處理康橋客製報表多的東西
-        public KCBSDermitManager kmanager = new KCBSDermitManager();
+        //// 專處理康橋客製報表多的東西
+        //public KCBSDermitManager kmanager = new KCBSDermitManager();
 
         private Boolean HasReferenceExam = false;
         private Boolean btnPrintClick = false;
@@ -87,10 +87,25 @@ namespace HsinChuExamScore_JH
         // 樣板設定檔
         private List<Configure> _ConfigureList = new List<Configure>();
 
-        // 開始日期
-        private DateTime _BeginDate;
-        // 結束日期
-        private DateTime _EndDate;
+        // 開始日期(缺曠)
+        private DateTime _BeginDateAttend;
+        // 結束日期(缺曠)
+        private DateTime _EndDateAttend;
+
+        // 開始日期(獎)
+        private DateTime _BeginDateMerit;
+        // 結束日期(獎)
+        private DateTime _EndDateMerit;
+
+        // 開始日期(康橋懲戒)
+        private DateTime _BeginDateDermit;
+        // 結束日期(康橋懲戒)
+        private DateTime _EndDateDermit;
+
+        // 開始日期(服務學習)
+        private DateTime _BeginDateService;
+        // 結束日期(康橋懲戒)
+        private DateTime _EndDateService;
 
         // 成績校正日期字串
         private string _ScoreEditDate = "";
@@ -742,13 +757,16 @@ namespace HsinChuExamScore_JH
             _bgWorkReport.ReportProgress(45);
 
             // 缺曠資料區間統計
-            _AttendanceDict = Utility.GetAttendanceCountByDate(StudRecList, _BeginDate, _EndDate);
+            _AttendanceDict = Utility.GetAttendanceCountByDate(StudRecList, _BeginDateAttend, _EndDateAttend);
 
-            // 獎懲資料
-            Dictionary<string, Dictionary<string, int>> DisciplineCountDict = Utility.GetDisciplineCountByDate(_StudentIDList, _BeginDate, _EndDate);
+            // 獎懲資料 (對於康橋而言實質只有獎勵資料)
+            Dictionary<string, Dictionary<string, int>> DisciplineCountDict = Utility.GetDisciplineCountByDate(_StudentIDList, _BeginDateMerit, _EndDateMerit);
 
             // 服務學習
-            Dictionary<string, decimal> ServiceLearningDict = Utility.GetServiceLearningDetailByDate(_StudentIDList, _BeginDate, _EndDate);
+            Dictionary<string, decimal> ServiceLearningDict = Utility.GetServiceLearningDetailByDate(_StudentIDList, _BeginDateService, _EndDateService);
+
+            // 專處理康橋客製報表多的東西
+            KCBSDermitManager kmanager = new KCBSDermitManager(_BeginDateDermit,_EndDateDermit);
 
             // 取得父母監護人資訊
             Dictionary<string, JHParentRecord> ParentRecordDict = new Dictionary<string, JHParentRecord>();
@@ -1086,8 +1104,16 @@ namespace HsinChuExamScore_JH
                 dt.Columns.Add("校長");
                 dt.Columns.Add("教務主任");
                 dt.Columns.Add("班導師");
-                dt.Columns.Add("區間開始日期");
-                dt.Columns.Add("區間結束日期");
+                dt.Columns.Add("缺曠區間開始日期");
+                dt.Columns.Add("缺曠區間結束日期");
+
+                dt.Columns.Add("獎勵區間開始日期");
+                dt.Columns.Add("獎勵區間結束日期");
+                dt.Columns.Add("康橋懲戒區間開始日期");
+                dt.Columns.Add("康橋懲戒區間結束日期");
+                dt.Columns.Add("服務學習區間開始日期");
+                dt.Columns.Add("服務學習區間結束日期");
+
                 dt.Columns.Add("成績校正日期");
 
                 // todo 增加自訂欄位 全部抓出來
@@ -2211,8 +2237,19 @@ namespace HsinChuExamScore_JH
 
                 row["校長"] = ChancellorChineseName;
                 row["教務主任"] = EduDirectorName;
-                row["區間開始日期"] = _BeginDate.ToShortDateString();
-                row["區間結束日期"] = _EndDate.ToShortDateString();
+                row["缺曠區間開始日期"] = _BeginDateAttend.ToShortDateString();
+                row["缺曠區間結束日期"] = _EndDateAttend.ToShortDateString();
+
+                row["獎勵區間開始日期"] = _BeginDateMerit.ToShortDateString();
+                row["獎勵區間結束日期"] = _EndDateMerit.ToShortDateString();
+                row["康橋懲戒區間開始日期"] = _BeginDateDermit.ToShortDateString();
+                row["康橋懲戒區間結束日期"] = _EndDateDermit.ToShortDateString();
+                row["服務學習區間開始日期"] = _BeginDateService.ToShortDateString();
+                row["服務學習區間結束日期"] = _EndDateService.ToShortDateString();
+
+
+
+
                 row["成績校正日期"] = _ScoreEditDate;
 
                 // 加入康橋的ROW 內容
@@ -2419,8 +2456,16 @@ namespace HsinChuExamScore_JH
                 conf.RefSemester = _Configure.RefSemester;
                 conf.SubjectLimit = _Configure.SubjectLimit;
                 conf.Template = _Configure.Template;
-                conf.BeginDate = _Configure.BeginDate;
-                conf.EndDate = _Configure.EndDate;
+                conf.BeginDateAttend = _Configure.BeginDateAttend;
+                conf.EndDateAttend = _Configure.EndDateAttend;
+
+                conf.BeginDateMerit = _Configure.BeginDateMerit;
+                conf.EndDateMerit = _Configure.EndDateMerit;
+                conf.BeginDateDermit = _Configure.BeginDateDermit;
+                conf.EndDateDermit = _Configure.EndDateDermit;
+                conf.BeginDateSevice = _Configure.BeginDateSevice;
+                conf.EndDateSevice = _Configure.BeginDateSevice;
+
                 conf.ParseNumber = _Configure.ParseNumber;
                 conf.ScoreEditDate = _Configure.ScoreEditDate;
                 if (conf.PrintAttendanceList == null)
@@ -2498,13 +2543,13 @@ namespace HsinChuExamScore_JH
         private void btnPrint_Click(object sender, EventArgs e)
         {
             btnPrintClick = true;
-            if (dtBegin.IsEmpty || dtEnd.IsEmpty)
+            if (dtBeginAttend.IsEmpty || dtEndAttend.IsEmpty)
             {
                 FISCA.Presentation.Controls.MsgBox.Show("日期區間必須輸入!");
                 return;
             }
 
-            if (dtBegin.Value > dtEnd.Value)
+            if (dtBeginAttend.Value > dtEndAttend.Value)
             {
                 FISCA.Presentation.Controls.MsgBox.Show("開始日期必須小於或等於結束日期!!");
                 return;
@@ -2610,8 +2655,15 @@ namespace HsinChuExamScore_JH
                 _SelAttendanceList.Add(name);
 
 
-            _BeginDate = dtBegin.Value;
-            _EndDate = dtEnd.Value;
+            _BeginDateAttend = dtBeginAttend.Value;
+            _EndDateAttend = dtEndAttend.Value;
+
+            _BeginDateMerit = dtBeginMerit.Value;
+            _EndDateMerit = dtEndMerit.Value;
+            _BeginDateDermit = dtBeginDermit.Value;
+            _EndDateDermit = dtEndDermit.Value;
+            _BeginDateService = dtBeginService.Value;
+            _EndDateService = dtEndService.Value;
 
             if (dtScoreEdit.IsEmpty)
                 _ScoreEditDate = "";
@@ -2707,8 +2759,17 @@ namespace HsinChuExamScore_JH
             }
     
             // 儲存開始與結束日期
-            _Configure.BeginDate = dtBegin.Value.ToShortDateString();
-            _Configure.EndDate = dtEnd.Value.ToShortDateString();
+            _Configure.BeginDateAttend = dtBeginAttend.Value.ToShortDateString();
+            _Configure.EndDateAttend = dtEndAttend.Value.ToShortDateString();
+
+            _Configure.BeginDateMerit = dtBeginMerit.Value.ToShortDateString();
+            _Configure.EndDateMerit = dtEndMerit.Value.ToShortDateString();
+            _Configure.BeginDateDermit = dtBeginDermit.Value.ToShortDateString();
+            _Configure.EndDateDermit = dtEndDermit.Value.ToShortDateString();
+            _Configure.BeginDateSevice = dtBeginService.Value.ToShortDateString();
+            _Configure.EndDateSevice = dtEndService.Value.ToShortDateString();
+
+
             if (dtScoreEdit.IsEmpty)
                 _Configure.ScoreEditDate = "";
             else
@@ -2930,15 +2991,45 @@ namespace HsinChuExamScore_JH
 
                     // 開始與結束日期
                     DateTime dtb, dte, dtee;
-                    if (DateTime.TryParse(_Configure.BeginDate, out dtb))
-                        dtBegin.Value = dtb;
+                    if (DateTime.TryParse(_Configure.BeginDateAttend, out dtb))
+                        dtBeginAttend.Value = dtb;
                     else
-                        dtBegin.Value = DateTime.Now;
+                        dtBeginAttend.Value = DateTime.Now;
 
-                    if (DateTime.TryParse(_Configure.EndDate, out dte))
-                        dtEnd.Value = dte;
+                    if (DateTime.TryParse(_Configure.EndDateAttend, out dte))
+                        dtEndAttend.Value = dte;
                     else
-                        dtEnd.Value = DateTime.Now;
+                        dtEndAttend.Value = DateTime.Now;
+
+                    if (DateTime.TryParse(_Configure.BeginDateMerit, out dtb))
+                        dtBeginMerit.Value = dtb;
+                    else
+                        dtBeginMerit.Value = DateTime.Now;
+
+                    if (DateTime.TryParse(_Configure.EndDateMerit, out dte))
+                        dtEndMerit.Value = dte;
+                    else
+                        dtEndMerit.Value = DateTime.Now;
+
+                    if (DateTime.TryParse(_Configure.BeginDateDermit, out dtb))
+                        dtBeginDermit.Value = dtb;
+                    else
+                        dtBeginDermit.Value = DateTime.Now;
+
+                    if (DateTime.TryParse(_Configure.EndDateDermit, out dte))
+                        dtEndDermit.Value = dte;
+                    else
+                        dtEndDermit.Value = DateTime.Now;
+
+                    if (DateTime.TryParse(_Configure.BeginDateSevice, out dtb))
+                        dtBeginService.Value = dtb;
+                    else
+                        dtBeginService.Value = DateTime.Now;
+
+                    if (DateTime.TryParse(_Configure.EndDateSevice, out dte))
+                        dtEndService.Value = dte;
+                    else
+                        dtEndService.Value = DateTime.Now;                  
 
                     // 成績校正日期
                     if (DateTime.TryParse(_Configure.ScoreEditDate, out dtee))
@@ -2955,7 +3046,7 @@ namespace HsinChuExamScore_JH
                     cboExam.SelectedIndex = -1;
 
                     // 開始與結束日期沒有預設值時給當天
-                    dtBegin.Value = dtEnd.Value = DateTime.Now;
+                    dtBeginAttend.Value = dtEndAttend.Value = DateTime.Now;
                 }
             }
         }

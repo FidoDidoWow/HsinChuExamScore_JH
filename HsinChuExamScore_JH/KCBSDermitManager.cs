@@ -31,8 +31,14 @@ namespace HsinChuExamScore_JH
         // 各康橋學校設定懲戒名稱Dict
         Dictionary<string, string> dermitNameSettingDict = new Dictionary<string, string>();
 
-        public KCBSDermitManager()
+        DateTime beginDate;
+        DateTime endDate;
+
+        public KCBSDermitManager(DateTime bd,DateTime ed)
         {
+            beginDate = bd;
+            endDate = ed;
+
             dermitComparisonDict.Add("1", "康橋1級懲戒支數");
             dermitComparisonDict.Add("2", "康橋2級懲戒支數");
             dermitComparisonDict.Add("3", "康橋3級懲戒支數");
@@ -45,6 +51,7 @@ namespace HsinChuExamScore_JH
             dermitNameSettingList = _AccessHelper.Select<DAO.UDT_KCBSDermitComparison>();
 
             // 預設
+            dermitNameSettingDict.Add("0", "");
             dermitNameSettingDict.Add("1", "第一級");
             dermitNameSettingDict.Add("2", "第二級");
             dermitNameSettingDict.Add("3", "第三級");
@@ -152,8 +159,12 @@ namespace HsinChuExamScore_JH
                 {
                     continue;
                 }
-                                           
-                valueTransfer(record, record.LevelNum);                
+
+                // 僅將範圍時間內 列入
+                if (record.Occur_date.Date >= beginDate && record.Occur_date.Date <= endDate)
+                {
+                    valueTransfer(record, record.LevelNum);
+                }                
             }
         }
 

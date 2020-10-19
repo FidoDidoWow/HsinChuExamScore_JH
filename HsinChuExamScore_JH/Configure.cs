@@ -89,21 +89,57 @@ namespace HsinChuExamScore_JH
 
 
          /// <summary>
-         /// 開始日期
+         /// 開始日期(缺曠)
          /// </summary>
          [FISCA.UDT.Field]
-         public string BeginDate { get; set; }
+         public string BeginDateAttend { get; set; }
 
          /// <summary>
-         /// 結束日期
+         /// 結束日期(缺曠)
          /// </summary>
          [FISCA.UDT.Field]
-         public string EndDate { get; set; }
+        public string EndDateAttend { get; set; }
 
-         /// <summary>
-         /// 成績校正日期
-         /// </summary>
-         [FISCA.UDT.Field]
+        /// <summary>
+        /// 開始日期(獎)
+        /// </summary>
+        [FISCA.UDT.Field]
+        public string BeginDateMerit { get; set; }
+
+        /// <summary>
+        /// 結束日期(獎)
+        /// </summary>
+        [FISCA.UDT.Field]
+        public string EndDateMerit { get; set; }
+
+        /// <summary>
+        /// 開始日期(康橋懲戒)
+        /// </summary>
+        [FISCA.UDT.Field]
+        public string BeginDateDermit { get; set; }
+        
+        /// <summary>
+        /// 結束日期(康橋懲戒)
+        /// </summary>
+        [FISCA.UDT.Field]
+        public string EndDateDermit { get; set; }
+
+        /// <summary>
+        /// 開始日期(服務學習)
+        /// </summary>
+        [FISCA.UDT.Field]
+        public string BeginDateSevice { get; set; }
+
+        /// <summary>
+        /// 結束日期(服務學習)
+        /// </summary>
+        [FISCA.UDT.Field]
+        public string EndDateSevice { get; set; }
+
+        /// <summary>
+        /// 成績校正日期
+        /// </summary>
+        [FISCA.UDT.Field]
          public string ScoreEditDate { get; set; }
 
          /// <summary>
