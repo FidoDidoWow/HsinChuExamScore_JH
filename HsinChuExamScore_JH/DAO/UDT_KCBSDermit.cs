@@ -14,6 +14,7 @@ namespace HsinChuExamScore_JH.DAO
         // 在ishool 端 只檢視 還有出報表， 新增與更新的部分 將由康橋端 每日自動更新資料庫
         // 另外ischool UDT 的概念原本就有  Last_Update 的欄位，是在ischool系統中 這一列資料被更動的時間記錄
         // 而對接來的資料 LastUpdate >> 則是在 Assota 系統資料庫的更新時間，此點必須注意
+        // >> 後來跟明裕討論，取消LastUpdate 欄位，直接使用ischool 本來就有的 Last_Update
 
         /// <summary>
         /// 學生系統流水號
@@ -45,10 +46,11 @@ namespace HsinChuExamScore_JH.DAO
         [Field(Field = "IsDelete", Indexed = false)]
         public bool IsDelete { get; set; }
 
+        // 取得最後更新時間(ischool UDT 內建)
         /// <summary>
         /// LastUpdate
         /// </summary>
-        [Field(Field = "LastUpdate", Indexed = false)]
+        [Field(Field = "last_update", Indexed = false)]
         public DateTime LastUpdate { get; set; }
 
 

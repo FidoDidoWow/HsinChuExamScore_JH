@@ -129,7 +129,7 @@ namespace HsinChuExamScore_JH
                     ws.Cells[rowIndex, 8].PutValue(deleted);
                     //最後修正日期
                     ws.Cells[rowIndex, 9].PutValue(record.LastUpdate.ToShortDateString());
-
+                    
                     rowIndex++;
                     
                     #endregion

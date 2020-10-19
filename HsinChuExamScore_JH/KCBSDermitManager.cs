@@ -23,16 +23,40 @@ namespace HsinChuExamScore_JH
         Dictionary<string, Dictionary<string, int>> dermitDict = new Dictionary<string, Dictionary<string, int>>();
 
         // 1~6 級　對應變數中文
-        Dictionary<string, string> ComparisonDict = new Dictionary<string, string>();
+        Dictionary<string, string> dermitComparisonDict = new Dictionary<string, string>();
+
+        // 各康橋學校設定懲戒名稱List
+        List<DAO.UDT_KCBSDermitComparison> dermitNameSettingList = new List<DAO.UDT_KCBSDermitComparison>();
+
+        // 各康橋學校設定懲戒名稱Dict
+        Dictionary<string, string> dermitNameSettingDict = new Dictionary<string, string>();
 
         public KCBSDermitManager()
         {
-            ComparisonDict.Add("1", "康橋1級懲戒支數");
-            ComparisonDict.Add("2", "康橋2級懲戒支數");
-            ComparisonDict.Add("3", "康橋3級懲戒支數");
-            ComparisonDict.Add("4", "康橋4級懲戒支數");
-            ComparisonDict.Add("5", "康橋5級懲戒支數");
-            ComparisonDict.Add("6", "康橋6級懲戒支數");
+            dermitComparisonDict.Add("1", "康橋1級懲戒支數");
+            dermitComparisonDict.Add("2", "康橋2級懲戒支數");
+            dermitComparisonDict.Add("3", "康橋3級懲戒支數");
+            dermitComparisonDict.Add("4", "康橋4級懲戒支數");
+            dermitComparisonDict.Add("5", "康橋5級懲戒支數");
+            dermitComparisonDict.Add("6", "康橋6級懲戒支數");
+
+            // 全部把該學校的設定抓出來，
+            AccessHelper _AccessHelper = new AccessHelper();
+            dermitNameSettingList = _AccessHelper.Select<DAO.UDT_KCBSDermitComparison>();
+
+            // 預設
+            dermitNameSettingDict.Add("1", "第一級");
+            dermitNameSettingDict.Add("2", "第二級");
+            dermitNameSettingDict.Add("3", "第三級");
+            dermitNameSettingDict.Add("4", "第四級");
+            dermitNameSettingDict.Add("5", "第五級");
+            dermitNameSettingDict.Add("6", "第六級");
+
+            foreach (DAO.UDT_KCBSDermitComparison record in dermitNameSettingList)
+            {
+                dermitNameSettingDict[record.LevelNum] = record.Name;
+            }
+
         }
 
         public DataTable NewKCBSTable(DataTable dt)
@@ -62,13 +86,31 @@ namespace HsinChuExamScore_JH
         {
             string stuid = "" + row["StudentID"];
 
+            row["康橋1級懲戒名稱"] = dermitNameSettingDict["1"];
+            row["康橋2級懲戒名稱"] = dermitNameSettingDict["2"];
+            row["康橋3級懲戒名稱"] = dermitNameSettingDict["3"];
+            row["康橋4級懲戒名稱"] = dermitNameSettingDict["4"];
+            row["康橋5級懲戒名稱"] = dermitNameSettingDict["5"];
+            row["康橋6級懲戒名稱"] = dermitNameSettingDict["6"];
+
             row["康橋1級懲戒支數"] = dermitDict[stuid]["康橋1級懲戒支數"];
             row["康橋2級懲戒支數"] = dermitDict[stuid]["康橋2級懲戒支數"];
             row["康橋3級懲戒支數"] = dermitDict[stuid]["康橋3級懲戒支數"];
             row["康橋4級懲戒支數"] = dermitDict[stuid]["康橋4級懲戒支數"];
             row["康橋5級懲戒支數"] = dermitDict[stuid]["康橋5級懲戒支數"];
             row["康橋6級懲戒支數"] = dermitDict[stuid]["康橋6級懲戒支數"];
-            row["康橋累計懲戒"] = dermitDict[stuid]["康橋累計懲戒"];
+
+            // 看最後累計多少支 直接對應 該級數懲戒名稱
+            if (dermitDict[stuid]["康橋累計懲戒"] <= 6)
+            {
+                row["康橋累計懲戒"] = dermitNameSettingDict["" + dermitDict[stuid]["康橋累計懲戒"]];
+            }
+            else
+            {
+                // 超過6 通通以最高級 6 來記
+                row["康橋累計懲戒"] = dermitNameSettingDict["6"];
+            }
+            
 
             return row;
         }
@@ -117,7 +159,7 @@ namespace HsinChuExamScore_JH
 
         public void valueTransfer(DAO.UDT_KCBSDermit record, int LevelNum)
         {
-            dermitDict["" + record.Ref_student_id][ComparisonDict["" + LevelNum]] += 1;
+            dermitDict["" + record.Ref_student_id][dermitComparisonDict["" + LevelNum]] += 1;
             dermitDict["" + record.Ref_student_id]["康橋累計懲戒"] += LevelNum; //　把所有級別加起來
         }
     }

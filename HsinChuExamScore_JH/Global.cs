@@ -3808,6 +3808,9 @@ namespace HsinChuExamScore_JH
                 builder.EndRow();
                 builder.EndTable();
 
+                builder.Writeln();
+                builder.Writeln();
+
                 builder.Writeln("康橋懲戒");
                 builder.StartTable();
                 builder.InsertCell();
