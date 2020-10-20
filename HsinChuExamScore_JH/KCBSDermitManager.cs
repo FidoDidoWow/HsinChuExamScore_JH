@@ -51,7 +51,7 @@ namespace HsinChuExamScore_JH
             dermitNameSettingList = _AccessHelper.Select<DAO.UDT_KCBSDermitComparison>();
 
             // 預設
-            dermitNameSettingDict.Add("0", "");
+            dermitNameSettingDict.Add("0", "無"); // 討論後，決定 累計0 顯示無
             dermitNameSettingDict.Add("1", "第一級");
             dermitNameSettingDict.Add("2", "第二級");
             dermitNameSettingDict.Add("3", "第三級");
@@ -115,7 +115,7 @@ namespace HsinChuExamScore_JH
             else
             {
                 // 超過6 通通以最高級 6 來記
-                row["康橋累計懲戒"] = dermitNameSettingDict["6"];
+                row["康橋累計懲戒"] = "超過" + dermitNameSettingDict["6"];
             }
             
 
