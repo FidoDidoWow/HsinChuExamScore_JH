@@ -26,6 +26,7 @@ namespace HsinChuExamScore_JH
 
             List<HsinChuExamScore_JH.DAO.UDT_KCBSDermit> retVal1 = _AccessHelper.Select<DAO.UDT_KCBSDermit>();
             List<HsinChuExamScore_JH.DAO.UDT_KCBSDermitComparison> retVal2 = _AccessHelper.Select<DAO.UDT_KCBSDermitComparison>();
+            List<HsinChuExamScore_JH.DAO.UDT_finalTotalKCBSDermit> retVal3 = _AccessHelper.Select<DAO.UDT_finalTotalKCBSDermit>();
 
 
             RibbonBarItem rbItem1 = MotherForm.RibbonBarItems["學生", "資料統計"];

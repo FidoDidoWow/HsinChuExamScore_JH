@@ -32,9 +32,10 @@
             this.listView = new DevComponents.DotNetBar.Controls.ListViewEx();
             this.chOccurTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDermitLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chAssotaNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chIsDelete = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chLastUpdateTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chAssotaNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.finalDermitLabel = new DevComponents.DotNetBar.LabelX();
             this.SuspendLayout();
             // 
             // listView
@@ -62,37 +63,46 @@
             // 
             // chOccurTime
             // 
-            this.chOccurTime.DisplayIndex = 0;
             this.chOccurTime.Text = "發生日期";
             this.chOccurTime.Width = 120;
             // 
             // chDermitLevel
             // 
-            this.chDermitLevel.DisplayIndex = 1;
             this.chDermitLevel.Text = "懲戒層級";
             this.chDermitLevel.Width = 80;
             // 
+            // chAssotaNo
+            // 
+            this.chAssotaNo.Text = "懲戒單號";
+            this.chAssotaNo.Width = 120;
+            // 
             // chIsDelete
             // 
-            this.chIsDelete.DisplayIndex = 3;
             this.chIsDelete.Text = "是否註銷";
             this.chIsDelete.Width = 80;
             // 
             // chLastUpdateTime
             // 
-            this.chLastUpdateTime.DisplayIndex = 4;
             this.chLastUpdateTime.Text = "最後修正日期";
             this.chLastUpdateTime.Width = 160;
             // 
-            // chAssotaNo
+            // finalDermitLabel
             // 
-            this.chAssotaNo.DisplayIndex = 2;
-            this.chAssotaNo.Text = "懲戒單號";
-            this.chAssotaNo.Width = 120;
+            // 
+            // 
+            // 
+            this.finalDermitLabel.BackgroundStyle.Class = "";
+            this.finalDermitLabel.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.finalDermitLabel.Location = new System.Drawing.Point(223, 8);
+            this.finalDermitLabel.Name = "finalDermitLabel";
+            this.finalDermitLabel.Size = new System.Drawing.Size(260, 23);
+            this.finalDermitLabel.TabIndex = 1;
+            this.finalDermitLabel.Text = "目前累計:無";
             // 
             // DemeritItemKCBS
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.finalDermitLabel);
             this.Controls.Add(this.listView);
             this.Group = "康橋懲戒記錄";
             this.Name = "DemeritItemKCBS";
@@ -109,5 +119,6 @@
         private System.Windows.Forms.ColumnHeader chIsDelete;
         private System.Windows.Forms.ColumnHeader chLastUpdateTime;
         private System.Windows.Forms.ColumnHeader chAssotaNo;
+        private DevComponents.DotNetBar.LabelX finalDermitLabel;
     }
 }

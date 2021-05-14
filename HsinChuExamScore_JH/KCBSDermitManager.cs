@@ -16,11 +16,17 @@ namespace HsinChuExamScore_JH
         // 選擇學生範圍　懲戒清單
         List<DAO.UDT_KCBSDermit> dermitList = new List<DAO.UDT_KCBSDermit>();
 
+        // 選擇學生範圍　懲戒清單
+        List<DAO.UDT_finalTotalKCBSDermit> finaldermitList = new List<DAO.UDT_finalTotalKCBSDermit>();
+
         // 六大項康橋懲戒對照
         List<DAO.UDT_KCBSDermitComparison> dermitComparisonList = new List<DAO.UDT_KCBSDermitComparison>();
 
         // <學生ID,懲戒 KEY 值,Value>
         Dictionary<string, Dictionary<string, int>> dermitDict = new Dictionary<string, Dictionary<string, int>>();
+
+        // <學生ID,最終懲戒 KEY 值,Value>
+        Dictionary<string, Dictionary<string, string>> finaldermitDict = new Dictionary<string, Dictionary<string, string>>();
 
         // 1~6 級　對應變數中文
         Dictionary<string, string> dermitComparisonDict = new Dictionary<string, string>();
@@ -34,7 +40,7 @@ namespace HsinChuExamScore_JH
         DateTime beginDate;
         DateTime endDate;
 
-        public KCBSDermitManager(DateTime bd,DateTime ed)
+        public KCBSDermitManager(DateTime bd, DateTime ed)
         {
             beginDate = bd;
             endDate = ed;
@@ -107,22 +113,23 @@ namespace HsinChuExamScore_JH
             row["康橋5級懲戒支數"] = dermitDict[stuid]["康橋5級懲戒支數"];
             row["康橋6級懲戒支數"] = dermitDict[stuid]["康橋6級懲戒支數"];
 
-            // 看最後累計多少支 直接對應 該級數懲戒名稱
-            if (dermitDict[stuid]["康橋累計懲戒"] <= 6)
-            {
-                row["康橋累計懲戒"] = dermitNameSettingDict["" + dermitDict[stuid]["康橋累計懲戒"]];
-            }
-            else
-            {
-                // 超過6 通通以最高級 6 來記
-                row["康橋累計懲戒"] = "超過" + dermitNameSettingDict["6"];
-            }
-            
+            //// 看最後累計多少支 直接對應 該級數懲戒名稱
+            //if (dermitDict[stuid]["康橋累計懲戒"] <= 6)
+            //{
+            //    row["康橋累計懲戒"] = dermitNameSettingDict["" + dermitDict[stuid]["康橋累計懲戒"]];
+            //}
+            //else
+            //{
+            //    // 超過6 通通以最高級 6 來記
+            //    row["康橋累計懲戒"] = "超過" + dermitNameSettingDict["6"];
+            //}
+
+            row["康橋累計懲戒"] = finaldermitDict[stuid]["康橋累計懲戒"];
 
             return row;
         }
 
-        
+
 
         // 取得康橋懲戒資料
         public void GetKCBSDermit(List<string> _stuIDList)
@@ -139,6 +146,8 @@ namespace HsinChuExamScore_JH
 
             dermitList = _AccessHelper.Select<DAO.UDT_KCBSDermit>(query);
 
+            finaldermitList = _AccessHelper.Select<DAO.UDT_finalTotalKCBSDermit>(query);
+
             foreach (string sid in _stuIDList)
             {
                 dermitDict.Add(sid, new Dictionary<string, int>());
@@ -150,6 +159,12 @@ namespace HsinChuExamScore_JH
                 dermitDict[sid].Add("康橋6級懲戒支數", 0);
                 dermitDict[sid].Add("康橋累計懲戒", 0);
 
+            }
+
+            foreach (string sid in _stuIDList)
+            {
+                finaldermitDict.Add(sid, new Dictionary<string, string>());
+                finaldermitDict[sid].Add("康橋累計懲戒", "無");
             }
 
             foreach (DAO.UDT_KCBSDermit record in dermitList)
@@ -164,14 +179,19 @@ namespace HsinChuExamScore_JH
                 if (record.Occur_date.Date >= beginDate && record.Occur_date.Date <= endDate)
                 {
                     valueTransfer(record, record.LevelNum);
-                }                
+                }
+            }
+
+            foreach (DAO.UDT_finalTotalKCBSDermit record in finaldermitList)
+            {
+                finaldermitDict["" + record.Ref_student_id]["康橋累計懲戒"] = record.LastStatus;
             }
         }
 
         public void valueTransfer(DAO.UDT_KCBSDermit record, int LevelNum)
         {
             dermitDict["" + record.Ref_student_id][dermitComparisonDict["" + LevelNum]] += 1;
-            dermitDict["" + record.Ref_student_id]["康橋累計懲戒"] += LevelNum; //　把所有級別加起來
+            //dermitDict["" + record.Ref_student_id]["康橋累計懲戒"] += LevelNum; //　把所有級別加起來
         }
     }
 }
