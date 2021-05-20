@@ -53,6 +53,12 @@ namespace HsinChuExamScore_JH.DAO
         [Field(Field = "last_update", Indexed = false)]
         public DateTime LastUpdate { get; set; }
 
+        /// <summary>
+        /// 懲戒單號
+        /// </summary>
+        [Field(Field = "goldmedal_code", Indexed = false)]
+        public string Goldmedal_code { get; set; }
+
 
 
     }
