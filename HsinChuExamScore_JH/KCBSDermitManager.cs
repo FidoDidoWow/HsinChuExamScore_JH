@@ -190,7 +190,11 @@ namespace HsinChuExamScore_JH
 
         public void valueTransfer(DAO.UDT_KCBSDermit record, int LevelNum)
         {
-            dermitDict["" + record.Ref_student_id][dermitComparisonDict["" + LevelNum]] += 1;
+            //2021/06/21 穎驊註解，累計方式改變，0級不必再累積計算
+            if (LevelNum != 0)
+            {
+                dermitDict["" + record.Ref_student_id][dermitComparisonDict["" + LevelNum]] += 1;
+            }
             //dermitDict["" + record.Ref_student_id]["康橋累計懲戒"] += LevelNum; //　把所有級別加起來
         }
     }
