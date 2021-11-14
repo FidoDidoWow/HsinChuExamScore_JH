@@ -191,7 +191,8 @@ namespace HsinChuExamScore_JH
         public void valueTransfer(DAO.UDT_KCBSDermit record, int LevelNum)
         {
             //2021/06/21 穎驊註解，累計方式改變，0級不必再累積計算
-            if (LevelNum != 0)
+            //2021/11/14 穎驊註解，康橋明裕反映 可能會有 7級以上，不能有錯誤訊息，但也不需列印出來
+            if (LevelNum != 0 && dermitComparisonDict.ContainsKey("" + LevelNum))
             {
                 dermitDict["" + record.Ref_student_id][dermitComparisonDict["" + LevelNum]] += 1;
             }
