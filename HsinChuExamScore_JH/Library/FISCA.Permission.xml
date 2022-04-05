@@ -44,12 +44,6 @@
             
             </summary>
         </member>
-        <member name="M:FISCA.Permission.Catalog.Add(FISCA.Permission.FeatureItem)">
-            <summary>
-            
-            </summary>
-            <param name="feature"></param>
-        </member>
         <member name="P:FISCA.Permission.Catalog.SubCatalogs">
             <summary>
             
@@ -59,6 +53,12 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:FISCA.Permission.Catalog.Add(FISCA.Permission.FeatureItem)">
+            <summary>
+            
+            </summary>
+            <param name="feature"></param>
         </member>
         <member name="P:FISCA.Permission.Catalog.Item(System.String)">
             <summary>
@@ -77,12 +77,6 @@
             
             </summary>
         </member>
-        <member name="M:FISCA.Permission.CatalogCollection.GetEnumerator">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:FISCA.Permission.CatalogCollection.Item(System.String)">
             <summary>
             
@@ -95,49 +89,15 @@
             
             </summary>
         </member>
+        <member name="M:FISCA.Permission.CatalogCollection.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:FISCA.Permission.CustomeFeature">
             <summary>
             
-            </summary>
-        </member>
-        <member name="T:FISCA.Permission.FeatureItem">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:FISCA.Permission.FeatureItem.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.FeatureItem.Title">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.FeatureItem.Code">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.FeatureItem.Description">
-            <summary>
-            功能描述。
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.FeatureItem.Editor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.FeatureItem.ModuleFolder">
-            <summary>
-            註冊此功能的組件所在目錄。
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.FeatureItem.DeclaringSource">
-            <summary>
-            取得或設定宣告 FeatureCode 的來源 Method。
             </summary>
         </member>
         <member name="M:FISCA.Permission.CustomeFeature.#ctor(System.String,System.String,FISCA.Permission.IAceEditor)">
@@ -178,13 +138,6 @@
             <param name="code"></param>
             <param name="accessString"></param>
         </member>
-        <member name="M:FISCA.Permission.FeatureAce.Parse(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="permString"></param>
-            <returns></returns>
-        </member>
         <member name="P:FISCA.Permission.FeatureAce.Code">
             <summary>
             功能代碼。
@@ -220,6 +173,13 @@
             代表沒有任何資訊的物件。
             </summary>
         </member>
+        <member name="M:FISCA.Permission.FeatureAce.Parse(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="permString"></param>
+            <returns></returns>
+        </member>
         <member name="T:FISCA.Permission.FeatureAcl">
             <summary>
             代表一組權限的集合。
@@ -228,19 +188,6 @@
         <member name="M:FISCA.Permission.FeatureAcl.#ctor">
             <summary>
             </summary>
-        </member>
-        <member name="M:FISCA.Permission.FeatureAcl.Contains(System.String)">
-            <summary>
-            使用者身上是否包含了指定權限代碼的設定值。
-            </summary>
-            <param name="code"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FISCA.Permission.FeatureAcl.GetEnumerator">
-            <summary>
-            
-            </summary>
-            <returns></returns>
         </member>
         <member name="P:FISCA.Permission.FeatureAcl.Item(System.String)">
             <summary>
@@ -253,6 +200,19 @@
             
             </summary>
             <param name="feature"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FISCA.Permission.FeatureAcl.Contains(System.String)">
+            <summary>
+            使用者身上是否包含了指定權限代碼的設定值。
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FISCA.Permission.FeatureAcl.GetEnumerator">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="T:FISCA.Permission.FeatureCodeAttribute">
@@ -272,13 +232,6 @@
             <param name="code"></param>
             <param name="title"></param>
         </member>
-        <member name="M:FISCA.Permission.FeatureCodeAttribute.GetCode(System.Type)">
-            <summary>
-            
-            </summary>
-            <param name="featureType"></param>
-            <returns></returns>
-        </member>
         <member name="P:FISCA.Permission.FeatureCodeAttribute.Code">
             <summary>
             
@@ -287,6 +240,53 @@
         <member name="P:FISCA.Permission.FeatureCodeAttribute.Title">
             <summary>
             
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.FeatureCodeAttribute.GetCode(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="featureType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FISCA.Permission.FeatureItem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.FeatureItem.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.FeatureItem.Title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.FeatureItem.Code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.FeatureItem.Description">
+            <summary>
+            功能描述。
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.FeatureItem.Editor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.FeatureItem.ModuleFolder">
+            <summary>
+            註冊此功能的組件所在目錄。
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.FeatureItem.DeclaringSource">
+            <summary>
+            取得或設定宣告 FeatureCode 的來源 Method。
             </summary>
         </member>
         <member name="T:FISCA.Permission.IAceEditor">
@@ -336,7 +336,7 @@
         </member>
         <member name="T:FISCA.Permission.Properties.Resources">
             <summary>
-              用於查詢當地語系化字串等的強型別資源類別
+              用於查詢當地語系化字串等的強類型資源類別。
             </summary>
         </member>
         <member name="P:FISCA.Permission.Properties.Resources.ResourceManager">
@@ -347,7 +347,7 @@
         <member name="P:FISCA.Permission.Properties.Resources.Culture">
             <summary>
               覆寫目前執行緒的 CurrentUICulture 屬性，對象是所有
-              使用這個強型別資源類別的資源查閱。
+              使用這個強類型資源類別的資源查閱。
             </summary>
         </member>
         <member name="T:FISCA.Permission.ReportFeature">
@@ -428,99 +428,12 @@
             
              </summary>
         </member>
-        <member name="T:FISCA.Permission.UserAcl">
-            <summary>
-            代表角色登入的權限資訊。
-            </summary>
-        </member>
-        <member name="M:FISCA.Permission.UserAcl.Reload">
-            <summary>
-            重新載入使用者權限資訊。
-            </summary>
-        </member>
-        <member name="M:FISCA.Permission.UserAcl.PopupRoleManager">
-            <summary>
-            顯示角色權限管理畫面。
-            </summary>
-        </member>
-        <member name="M:FISCA.Permission.UserAcl.PopupUserManager">
-            <summary>
-            顯示使用者管理畫面。
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.UserAcl.Current">
-            <summary>
-            代表目前登入使用者的權限清單。
-            </summary>
-        </member>
-        <member name="T:FISCA.Permission.PermissionChangedEventArgs">
-            <summary>
-            權限變更事件參數。
-            </summary>
-        </member>
-        <member name="M:FISCA.Permission.PermissionChangedEventArgs.#ctor(System.String,System.Collections.Generic.List{FISCA.Permission.PermissionChangeInfo})">
-            <summary>
-            
-            </summary>
-            <param name="changeSet"></param>
-            <param name="roleName"></param>
-        </member>
-        <member name="P:FISCA.Permission.PermissionChangedEventArgs.RoleName">
-            <summary>
-            角色名稱。
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.PermissionChangedEventArgs.ChangeSet">
-            <summary>
-            權限變更集。
-            </summary>
-        </member>
-        <member name="T:FISCA.Permission.RoleAclSource">
-            <summary>
-            代表角色的權限清單資料來源。
-            </summary>
-        </member>
-        <member name="M:FISCA.Permission.RoleAclSource.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:FISCA.Permission.RoleAclSource.Find(System.String)">
-            <summary>
-            尋找指定 Feature Code 所代表的物件。
-            </summary>
-            <param name="featureCode"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FISCA.Permission.RoleAclSource.SetModulesPath(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            設定所有會被載入並執行的模組路徑清單。
-            </summary>
-            <param name="paths"></param>
-        </member>
-        <member name="P:FISCA.Permission.RoleAclSource.Instance">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:FISCA.Permission.RoleAclSource.Item(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="P:FISCA.Permission.RoleAclSource.Root">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="E:FISCA.Permission.RoleAclSource.PermissionChanged">
-            <summary>
-            當權限變更時引發。
-            </summary>
-        </member>
         <member name="T:FISCA.Permission.UI.ConfirmMsgBox">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:FISCA.Permission.UI.ConfirmMsgBox.Button1Click">
             <summary>
             
             </summary>
@@ -551,11 +464,6 @@
              此為設計工具支援所需的方法 - 請勿使用程式碼編輯器修改這個方法的內容。
             
              </summary>
-        </member>
-        <member name="E:FISCA.Permission.UI.ConfirmMsgBox.Button1Click">
-            <summary>
-            
-            </summary>
         </member>
         <member name="P:FISCA.Permission.UI.FeatureNode.ChangedStyle">
             <summary>
@@ -589,11 +497,6 @@
             當角色資料變動時引發。
             </summary>
         </member>
-        <member name="M:FISCA.Permission.UI.RoleData.GetPermissionAsXml">
-            <summary>
-            將 Permissions 屬性轉換成 Xml 資料。
-            </summary>
-        </member>
         <member name="P:FISCA.Permission.UI.RoleData.Identity">
             <summary>
             角色編號。
@@ -612,6 +515,11 @@
         <member name="P:FISCA.Permission.UI.RoleData.Permissions">
             <summary>
             角色權限清單(ACL)。
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.UI.RoleData.GetPermissionAsXml">
+            <summary>
+            將 Permissions 屬性轉換成 Xml 資料。
             </summary>
         </member>
         <member name="T:FISCA.Permission.UI.RoleFeature">
@@ -686,16 +594,6 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:FISCA.Permission.UI.RolePermissionProxy.FillModuleItemsControl">
-            <summary>
-            目地在於計算出有哪些模組可供選擇，至於模組內含有哪些項目並不在此處理。
-            </summary>
-        </member>
-        <member name="F:FISCA.Permission.UI.RolePermissionProxy._feature_code_duplicate">
-            <summary>
-            用於檢查功能代碼有無重覆。
-            </summary>
-        </member>
         <member name="P:FISCA.Permission.UI.RolePermissionProxy.ModuleItemsControl">
             <summary>
             用於顯示模組項目。
@@ -711,7 +609,22 @@
             暫止 PermissionChanged 事件的發生。
             </summary>
         </member>
+        <member name="M:FISCA.Permission.UI.RolePermissionProxy.FillModuleItemsControl">
+            <summary>
+            目地在於計算出有哪些模組可供選擇，至於模組內含有哪些項目並不在此處理。
+            </summary>
+        </member>
+        <member name="F:FISCA.Permission.UI.RolePermissionProxy._feature_code_duplicate">
+            <summary>
+            用於檢查功能代碼有無重覆。
+            </summary>
+        </member>
         <member name="T:FISCA.Permission.UI.UserAddForm">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.UI.UserAddForm.NewUser">
             <summary>
             
             </summary>
@@ -739,11 +652,6 @@
             
              </summary>
         </member>
-        <member name="P:FISCA.Permission.UI.UserAddForm.NewUser">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:FISCA.Permission.UI.UserManager">
             <summary>
             
@@ -770,6 +678,98 @@
              此為設計工具支援所需的方法 - 請勿使用程式碼編輯器修改這個方法的內容。
             
              </summary>
+        </member>
+        <member name="T:FISCA.Permission.UserAcl">
+            <summary>
+            代表角色登入的權限資訊。
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.UserAcl.Current">
+            <summary>
+            代表目前登入使用者的權限清單。
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.UserAcl.Reload">
+            <summary>
+            重新載入使用者權限資訊。
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.UserAcl.PopupRoleManager">
+            <summary>
+            顯示角色權限管理畫面。
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.UserAcl.PopupUserManager">
+            <summary>
+            顯示使用者管理畫面。
+            </summary>
+        </member>
+        <member name="T:FISCA.Permission.PermissionChangedEventArgs">
+            <summary>
+            權限變更事件參數。
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.PermissionChangedEventArgs.#ctor(System.String,System.Collections.Generic.List{FISCA.Permission.PermissionChangeInfo})">
+            <summary>
+            
+            </summary>
+            <param name="changeSet"></param>
+            <param name="roleName"></param>
+        </member>
+        <member name="P:FISCA.Permission.PermissionChangedEventArgs.RoleName">
+            <summary>
+            角色名稱。
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.PermissionChangedEventArgs.ChangeSet">
+            <summary>
+            權限變更集。
+            </summary>
+        </member>
+        <member name="T:FISCA.Permission.RoleAclSource">
+            <summary>
+            代表角色的權限清單資料來源。
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.RoleAclSource.Instance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.RoleAclSource.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FISCA.Permission.RoleAclSource.Item(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FISCA.Permission.RoleAclSource.Find(System.String)">
+            <summary>
+            尋找指定 Feature Code 所代表的物件。
+            </summary>
+            <param name="featureCode"></param>
+            <returns></returns>
+        </member>
+        <member name="P:FISCA.Permission.RoleAclSource.Root">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:FISCA.Permission.RoleAclSource.PermissionChanged">
+            <summary>
+            當權限變更時引發。
+            </summary>
+        </member>
+        <member name="M:FISCA.Permission.RoleAclSource.SetModulesPath(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            設定所有會被載入並執行的模組路徑清單。
+            </summary>
+            <param name="paths"></param>
         </member>
     </members>
 </doc>
