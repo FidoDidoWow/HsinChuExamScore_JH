@@ -1471,7 +1471,7 @@ namespace HsinChuExamScore_JH
                                         else
                                         {
                                             //row[key] = examSubjScore.RefScoreF;
-                                            row[key] = doParseTransfer(examSubjScore.RefScoreF.Value);
+                                            //row[key] = doParseTransfer(examSubjScore.RefScoreF.Value);
                                         }
                                     }
                                         
@@ -1492,7 +1492,7 @@ namespace HsinChuExamScore_JH
                                         else
                                         {
                                             //row[key] = examSubjScore.RefScoreA;
-                                            row[key] = doParseTransfer(examSubjScore.RefScoreA.Value);
+                                            //row[key] = doParseTransfer(examSubjScore.RefScoreA.Value);
                                         }
                                     }
    
@@ -1511,7 +1511,7 @@ namespace HsinChuExamScore_JH
                                         }
                                         else
                                         {
-                                            row[key] = doParseTransfer(examSubjScore.RefScoreT.Value);
+                                            //row[key] = doParseTransfer(examSubjScore.RefScoreT.Value);
                                         }
                                     }
                                     break;

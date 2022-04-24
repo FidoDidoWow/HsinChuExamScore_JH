@@ -18,6 +18,7 @@ namespace HsinChuExamScore_JH
     {
         static DataTable _dtEpost = new DataTable();
 
+
         [FISCA.MainMethod]
         public static void Main()
         {
